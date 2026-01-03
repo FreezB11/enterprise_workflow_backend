@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from app.database import Base, engine
 from app.models import user, task
-from app.routes import auth
+from app.routes import auth, register, task
 
 app = FastAPI(
     title="Enterprise Workflow Management System",
@@ -11,6 +11,8 @@ app = FastAPI(
 
 Base.metadata.create_all(bind=engine)
 app.include_router(auth.router)
+app.include_router(register.router)
+app.include_router(task.router)
 
 @app.get("/health")
 def health_check():
